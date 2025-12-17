@@ -141,7 +141,7 @@ const file_product_proto_rawDesc = "" +
 	"\x05price\x18\x03 \x01(\x01R\x05price2u\n" +
 	"\x0eProductService\x12c\n" +
 	"\n" +
-	"GetProduct\x12\x1d.product.v1.GetProductRequest\x1a\x13.product.v1.Product\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/products/{product_id}B0Z.github.com/youruser/yourrepo/gen/go/product/v1b\x06proto3"
+	"GetProduct\x12\x1d.product.v1.GetProductRequest\x1a\x13.product.v1.Product\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/products/{product_id}B7Z5github.com/Bielik20/grpc-playground/gen/go/product/v1b\x06proto3"
 
 var (
 	file_product_proto_rawDescOnce sync.Once

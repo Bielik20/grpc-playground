@@ -1,6 +1,6 @@
 syntax = "proto3";
 package product.v1;
-option go_package = "github.com/youruser/yourrepo/gen/go/product/v1";
+option go_package = "github.com/Bielik20/grpc-playground/gen/go/product/v1";
 
 // Import the annotations to enable HTTP mapping
 import "google/api/annotations.proto";

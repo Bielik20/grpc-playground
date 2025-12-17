@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	// Import your generated code
-	pb "github.com/youruser/yourrepo/gen/go/product/v1"
+	pb "github.com/Bielik20/grpc-playground/gen/go"
 )
 
 // 1. Implement the gRPC Server
