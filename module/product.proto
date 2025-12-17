@@ -1,0 +1,27 @@
+syntax = "proto3";
+package product.v1;
+option go_package = "github.com/youruser/yourrepo/gen/go/product/v1";
+
+// Import the annotations to enable HTTP mapping
+import "google/api/annotations.proto";
+
+message GetProductRequest {
+  string product_id = 1;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+service ProductService {
+  // 1. Standard gRPC definition
+  rpc GetProduct(GetProductRequest) returns (Product) {
+    // 2. HTTP Mapping for REST/Browser
+    option (google.api.http) = {
+      // This maps the URL path parameter {product_id} to the message field
+      get: "/v1/products/{product_id}"
+    };
+  }
+}
