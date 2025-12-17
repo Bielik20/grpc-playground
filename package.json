@@ -1,0 +1,13 @@
+{
+  "name": "grpc-playground",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.25.2",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

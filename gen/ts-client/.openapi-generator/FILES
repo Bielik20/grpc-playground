@@ -1,0 +1,10 @@
+apis/ProductV1ProductServiceApi.ts
+apis/index.ts
+docs/ProductV1GetProductRequest.md
+docs/ProductV1Product.md
+docs/ProductV1ProductServiceApi.md
+index.ts
+models/ProductV1GetProductRequest.ts
+models/ProductV1Product.ts
+models/index.ts
+runtime.ts
