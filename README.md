@@ -12,7 +12,9 @@ To generate stuff from protobuf: `buf generate`
 
 To start go server: `go run ./server/go/`
 
-<!--To run typescript client (against OpenAPI): `bun run client/typescript/call-simple-get.ts`-->
+To run typescript client (as JSON): `bun run client/typescript/call-json.ts`
+
+To run typescript client (as gRPC): `bun run client/typescript/call-grpc.ts`
 
 To run go client (against gRPC): `go run ./client/go/`
 

@@ -23,8 +23,8 @@ func (s *ProductServer) GetProduct(
 	ctx context.Context,
 	req *connect.Request[productv1.GetProductRequest],
 ) (*connect.Response[productv1.Product], error) {
-	
-	log.Printf("Received request for product ID: %s", req.Msg.ProductId)
+
+	log.Printf("Received request for product ID: %s ContentType: %s", req.Msg.ProductId, req.Header().Get("Content-Type"))
 
 	// Mock logic: In a real app, you would query a database here.
 	if req.Msg.ProductId == "" {
@@ -63,13 +63,13 @@ func main() {
 	// standard http.ListenAndServe is often sufficient, but h2c is best for local gRPC testing.
 	address := "localhost:8080"
 	fmt.Printf("Server listening on http://%s\n", address)
-	
+
 	// Use h2c to support HTTP/2 without TLS (required for standard gRPC clients locally)
 	err := http.ListenAndServe(
 		address,
 		h2c.NewHandler(mux, &http2.Server{}),
 	)
-	
+
 	if err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
