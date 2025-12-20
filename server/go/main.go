@@ -2,79 +2,75 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
-	"net"
 	"net/http"
 
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"connectrpc.com/connect"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 
-	// Import your generated code
-	pb "github.com/Bielik20/grpc-playground/gen/go"
+	// Import the generated code
+	productv1 "github.com/Bielik20/grpc-playground/gen/go"
+	productv1connect"github.com/Bielik20/grpc-playground/gen/go/_goconnect"
 )
 
-// 1. Implement the gRPC Server
-type server struct {
-	pb.UnimplementedProductServiceServer
-}
+// ProductServer implements the ProductServiceHandler interface.
+type ProductServer struct{}
 
-func (s *server) GetProduct(ctx context.Context, req *pb.GetProductRequest) (*pb.Product, error) {
-	// Logic to fetch product...
-	return &pb.Product{
-		Id:    req.ProductId,
-		Name:  "Super Widget",
-		Price: 19.99,
-	}, nil
-}
+// GetProduct implements the logic for the GetProduct RPC.
+func (s *ProductServer) GetProduct(
+	ctx context.Context,
+	req *connect.Request[productv1.GetProductRequest],
+) (*connect.Response[productv1.Product], error) {
+	
+	log.Printf("Received request for product ID: %s", req.Msg.ProductId)
 
-// 2. Middleware to add Cache-Control headers for Browser
-func cachingMiddleware(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// If it's a GET request, tell the browser to cache it for 1 hour
-		if r.Method == "GET" {
-			w.Header().Set("Cache-Control", "public, max-age=3600")
-		}
-		h.ServeHTTP(w, r)
-	})
+	// Mock logic: In a real app, you would query a database here.
+	if req.Msg.ProductId == "" {
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("product_id is required"))
+	}
+
+	product := &productv1.Product{
+		Id:    req.Msg.ProductId,
+		Name:  "Super Cool Gadget",
+		Price: 99.99,
+	}
+
+	res := connect.NewResponse(product)
+	res.Header().Set("Product-Version", "v1")
+
+	return res, nil
 }
 
 func main() {
-	// --- Start gRPC Server (Internal) ---
-	lis, err := net.Listen("tcp", ":9090")
-	if err != nil {
-		log.Fatalln("Failed to listen:", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterProductServiceServer(s, &server{})
-	go func() {
-		log.Println("Serving gRPC on 0.0.0.0:9090")
-		log.Fatalln(s.Serve(lis))
-	}()
+	// 1. Instantiate the implementation
+	producter := &ProductServer{}
 
-	// --- Start HTTP Gateway (External) ---
-	conn, err := grpc.DialContext(
-		context.Background(),
-		"0.0.0.0:9090",
-		grpc.WithBlock(),
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	// 2. Create the path and handler using the generated constructor.
+	// NewProductServiceHandler returns the path prefix (e.g., "/product.v1.ProductService/")
+	// and the http.Handler that handles the logic.
+	path, handler := productv1connect.NewProductServiceHandler(producter)
+
+	// 3. Mount the handler on a standard Go http.ServeMux
+	mux := http.NewServeMux()
+	mux.Handle(path, handler)
+
+	// 4. Start the server.
+	// To support gRPC (which requires HTTP/2) over unencrypted HTTP (h2c) locally,
+	// we wrap the mux in h2c.NewHandler.
+	// If you are behind a load balancer doing TLS termination or using pure JSON,
+	// standard http.ListenAndServe is often sufficient, but h2c is best for local gRPC testing.
+	address := "localhost:8080"
+	fmt.Printf("Server listening on http://%s\n", address)
+	
+	// Use h2c to support HTTP/2 without TLS (required for standard gRPC clients locally)
+	err := http.ListenAndServe(
+		address,
+		h2c.NewHandler(mux, &http2.Server{}),
 	)
+	
 	if err != nil {
-		log.Fatalln("Failed to dial server:", err)
+		log.Fatalf("failed to serve: %v", err)
 	}
-
-	gwmux := runtime.NewServeMux()
-	err = pb.RegisterProductServiceHandler(context.Background(), gwmux, conn)
-	if err != nil {
-		log.Fatalln("Failed to register gateway:", err)
-	}
-
-	// Wrap gateway with caching middleware
-	gwServer := &http.Server{
-		Addr:    ":8080",
-		Handler: cachingMiddleware(gwmux),
-	}
-
-	log.Println("Serving HTTP on 0.0.0.0:8080")
-	log.Fatalln(gwServer.ListenAndServe())
 }

@@ -4,10 +4,9 @@
 // 	protoc        (unknown)
 // source: product.proto
 
-package v1
+package _go
 
 import (
-	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -130,18 +129,17 @@ var File_product_proto protoreflect.FileDescriptor
 
 const file_product_proto_rawDesc = "" +
 	"\n" +
-	"\rproduct.proto\x12\n" +
-	"product.v1\x1a\x1cgoogle/api/annotations.proto\"2\n" +
+	"\rproduct.proto\x12\aproduct\"2\n" +
 	"\x11GetProductRequest\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\tR\tproductId\"C\n" +
 	"\aProduct\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05price\x18\x03 \x01(\x01R\x05price2u\n" +
-	"\x0eProductService\x12c\n" +
+	"\x05price\x18\x03 \x01(\x01R\x05price2L\n" +
+	"\x0eProductService\x12:\n" +
 	"\n" +
-	"GetProduct\x12\x1d.product.v1.GetProductRequest\x1a\x13.product.v1.Product\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/v1/products/{product_id}B7Z5github.com/Bielik20/grpc-playground/gen/go/product/v1b\x06proto3"
+	"GetProduct\x12\x1a.product.GetProductRequest\x1a\x10.product.ProductB,Z*github.com/Bielik20/grpc-playground/gen/gob\x06proto3"
 
 var (
 	file_product_proto_rawDescOnce sync.Once
@@ -157,12 +155,12 @@ func file_product_proto_rawDescGZIP() []byte {
 
 var file_product_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_product_proto_goTypes = []any{
-	(*GetProductRequest)(nil), // 0: product.v1.GetProductRequest
-	(*Product)(nil),           // 1: product.v1.Product
+	(*GetProductRequest)(nil), // 0: product.GetProductRequest
+	(*Product)(nil),           // 1: product.Product
 }
 var file_product_proto_depIdxs = []int32{
-	0, // 0: product.v1.ProductService.GetProduct:input_type -> product.v1.GetProductRequest
-	1, // 1: product.v1.ProductService.GetProduct:output_type -> product.v1.Product
+	0, // 0: product.ProductService.GetProduct:input_type -> product.GetProductRequest
+	1, // 1: product.ProductService.GetProduct:output_type -> product.Product
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

@@ -2,8 +2,6 @@
 version: v2
 modules:
   - path: module
-deps:
-  - buf.build/googleapis/googleapis
 lint:
   use:
     - STANDARD

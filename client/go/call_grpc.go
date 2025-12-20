@@ -1,56 +1,27 @@
-/*
- *
- * Copyright 2015 gRPC authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-// Package main implements a client for Greeter service.
 package main
 
 import (
 	"context"
-	"flag"
 	"log"
-	"time"
+	"net/http"
 
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-	pb "github.com/Bielik20/grpc-playground/gen/go"
-)
-
-var (
-	addr = flag.String("addr", "localhost:9090", "the address to connect to")
+	"connectrpc.com/connect"
+	productv1 "github.com/Bielik20/grpc-playground/gen/go"
+	productv1connect "github.com/Bielik20/grpc-playground/gen/go/_goconnect"
 )
 
 func main() {
-	flag.Parse()
-	// Set up a connection to the server.
-	conn, err := grpc.NewClient(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	client := productv1connect.NewProductServiceClient(
+		http.DefaultClient,
+		"http://localhost:8080",
+	)
+	
+	res, err := client.GetProduct(context.Background(), connect.NewRequest(&productv1.GetProductRequest{
+		ProductId: "123",
+	}))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Println(err)
+		return
 	}
-	defer conn.Close()
-	c := pb.NewProductServiceClient(conn)
-
-	// Contact the server and print out its response.
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := c.GetProduct(ctx, &pb.GetProductRequest{ProductId: "123"})
-	if err != nil {
-		log.Fatalf("could not greet: %v", err)
-	}
-	log.Printf("Greeting: %s", r.GetName())
-
+	log.Println(res.Msg)
 }
