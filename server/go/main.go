@@ -12,7 +12,7 @@ import (
 
 	// Import the generated code
 	productv1 "github.com/Bielik20/grpc-playground/gen/go"
-	productv1connect"github.com/Bielik20/grpc-playground/gen/go/_goconnect"
+	productv1connect "github.com/Bielik20/grpc-playground/gen/go/_goconnect"
 )
 
 // ProductServer implements the ProductServiceHandler interface.
@@ -24,7 +24,7 @@ func (s *ProductServer) GetProduct(
 	req *connect.Request[productv1.GetProductRequest],
 ) (*connect.Response[productv1.Product], error) {
 
-	log.Printf("Received request for product ID: %s ContentType: %s", req.Msg.ProductId, req.Header().Get("Content-Type"))
+	log.Printf("Received request for product ID: %s ContentType: %s HttpMethod: %s", req.Msg.ProductId, req.Header().Get("Content-Type"), req.HTTPMethod())
 
 	// Mock logic: In a real app, you would query a database here.
 	if req.Msg.ProductId == "" {

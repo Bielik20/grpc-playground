@@ -13,5 +13,8 @@ message Product {
 }
 
 service ProductService {
-  rpc GetProduct(GetProductRequest) returns (Product);
+  rpc GetProduct(GetProductRequest) returns (Product) {
+    // https://connectrpc.com/docs/web/get-requests-and-caching/
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
 }

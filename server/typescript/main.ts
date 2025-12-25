@@ -8,7 +8,7 @@ import { ProductService, type GetProductRequest } from "../../gen/ts/product_pb"
 function routes(router: ConnectRouter) {
   router.service(ProductService, {
     async getProduct(req: GetProductRequest, context) {
-      console.log(`[TS Server] Received request for ID: ${req.productId} ContentType: ${context.requestHeader.get("content-type")}`);
+      console.log(`[TS Server] Received request for ID: ${req.productId} ContentType: ${context.requestHeader.get("content-type")} HttpMethod: ${context.requestMethod}`);
 
       if (!req.productId) {
         throw new Error("Product ID is required");

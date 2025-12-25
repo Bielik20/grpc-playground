@@ -9,6 +9,7 @@ async function main() {
   // This tells Connect how to send the data (HTTP version, base URL, etc.)
   const transport = createConnectTransport({
     baseUrl: "http://localhost:8080", // Pointing to our TS server (or your Go server at 8080)
+    useHttpGet: true,
   });
 
   // 2. Create the client

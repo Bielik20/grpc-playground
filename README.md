@@ -12,6 +12,8 @@ To generate stuff from protobuf: `buf generate`
 
 ## Running locally
 
+To start ts server: `bun run ./server/typescript/main.ts`
+
 To start go server: `go run ./server/go/`
 
 To run typescript client (as JSON): `bun run client/typescript/call-json.ts`

@@ -58,6 +58,7 @@ func NewProductServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			httpClient,
 			baseURL+ProductServiceGetProductProcedure,
 			connect.WithSchema(productServiceMethods.ByName("GetProduct")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -89,6 +90,7 @@ func NewProductServiceHandler(svc ProductServiceHandler, opts ...connect.Handler
 		ProductServiceGetProductProcedure,
 		svc.GetProduct,
 		connect.WithSchema(productServiceMethods.ByName("GetProduct")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/product.ProductService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
