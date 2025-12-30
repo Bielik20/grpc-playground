@@ -12,21 +12,21 @@ Install Go plugins:
 - `go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.1`
 - `go install connectrpc.com/connect/cmd/protoc-gen-connect-go@v1.19.1`
 
-To generate stuff from protobuf: `PATH="$(go env GOPATH)/bin:$(go env GOBIN):${PATH}" bunx buf generate`
+To generate stuff from protobuf: `PATH="$(go env GOPATH)/bin:$(go env GOBIN):${PATH}" bunx buf generate projects/product/api -o projects/product/api`
 
 Or as a shorthand: `make generate`
 
 ## Running locally
 
-To start ts server: `bun run ./server/typescript/main.ts`
+To start ts server: `bun run ./projects/product/server/main.ts`
 
-To start go server: `go run ./server/go/`
+To start go server: `go run ./projects/product/server/`
 
-To run typescript client (as JSON): `bun run client/typescript/call-json.ts`
+To run typescript client (as JSON): `bun run ./projects/product/client/call-json.ts`
 
-To run typescript client (as gRPC): `bun run client/typescript/call-grpc.ts`
+To run typescript client (as gRPC): `bun run ./projects/product/client/call-grpc.ts`
 
-To run go client (against gRPC): `go run ./client/go/`
+To run go client (against gRPC): `go run ./projects/product/client/`
 
 To call using JSON:
 

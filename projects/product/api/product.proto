@@ -1,6 +1,6 @@
 syntax = "proto3";
 package product;
-option go_package = "github.com/Bielik20/grpc-playground/gen/go";
+option go_package = "github.com/Bielik20/grpc-playground/projects/product/api/gen/go";
 
 message GetProductRequest {
   string product_id = 1;

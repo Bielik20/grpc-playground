@@ -139,7 +139,7 @@ const file_product_proto_rawDesc = "" +
 	"\x05price\x18\x03 \x01(\x01R\x05price2Q\n" +
 	"\x0eProductService\x12?\n" +
 	"\n" +
-	"GetProduct\x12\x1a.product.GetProductRequest\x1a\x10.product.Product\"\x03\x90\x02\x01B,Z*github.com/Bielik20/grpc-playground/gen/gob\x06proto3"
+	"GetProduct\x12\x1a.product.GetProductRequest\x1a\x10.product.Product\"\x03\x90\x02\x01BAZ?github.com/Bielik20/grpc-playground/projects/product/api/gen/gob\x06proto3"
 
 var (
 	file_product_proto_rawDescOnce sync.Once

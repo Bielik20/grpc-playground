@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"connectrpc.com/connect"
-	productv1 "github.com/Bielik20/grpc-playground/gen/go"
-	productv1connect "github.com/Bielik20/grpc-playground/gen/go/_goconnect"
+	productv1 "github.com/Bielik20/grpc-playground/projects/product/api/gen/go"
+	productv1connect "github.com/Bielik20/grpc-playground/projects/product/api/gen/go/_goconnect"
 )
 
 func main() {

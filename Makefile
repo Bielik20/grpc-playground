@@ -10,4 +10,4 @@ install-tools:
 
 generate: install-tools
   # `shell` is required here in Makefile, I don't know why :/
-	PATH="$(shell go env GOPATH)/bin:$(shell go env GOBIN):${PATH}" bunx buf generate
+	PATH="$(shell go env GOPATH)/bin:$(shell go env GOBIN):${PATH}" bunx buf generate projects/product/api -o projects/product/api

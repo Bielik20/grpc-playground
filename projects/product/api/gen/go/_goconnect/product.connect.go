@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	_go "github.com/Bielik20/grpc-playground/gen/go"
+	_go "github.com/Bielik20/grpc-playground/projects/product/api/gen/go"
 	http "net/http"
 	strings "strings"
 )

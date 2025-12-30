@@ -11,8 +11,8 @@ import (
 	"golang.org/x/net/http2/h2c"
 
 	// Import the generated code
-	productv1 "github.com/Bielik20/grpc-playground/gen/go"
-	productv1connect "github.com/Bielik20/grpc-playground/gen/go/_goconnect"
+	productv1 "github.com/Bielik20/grpc-playground/projects/product/api/gen/go"
+	productv1connect "github.com/Bielik20/grpc-playground/projects/product/api/gen/go/_goconnect"
 )
 
 // ProductServer implements the ProductServiceHandler interface.

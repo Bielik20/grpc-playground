@@ -1,7 +1,7 @@
 import type { ConnectRouter } from "@connectrpc/connect";
 import { connectNodeAdapter } from "@connectrpc/connect-node";
 import * as http from "http";
-import { ProductService, type GetProductRequest } from "../../gen/ts/product_pb";
+import { ProductService, type GetProductRequest } from "../api/gen/ts/product_pb";
 
 // 1. Implement the logic
 // The router function allows you to register multiple services

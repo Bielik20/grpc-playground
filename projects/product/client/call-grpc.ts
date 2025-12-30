@@ -1,15 +1,15 @@
 import { createClient } from "@connectrpc/connect";
-import { createConnectTransport } from "@connectrpc/connect-web";
+import { createConnectTransport } from "@connectrpc/connect-node";
 
 // Import generated service definition
-import { ProductService } from "../../gen/ts/product_pb";
+import { ProductService } from "../api/gen/ts/product_pb";
 
 async function main() {
   // 1. Create the transport
   // This tells Connect how to send the data (HTTP version, base URL, etc.)
   const transport = createConnectTransport({
     baseUrl: "http://localhost:8080", // Pointing to our TS server (or your Go server at 8080)
-    useHttpGet: true,
+    httpVersion: "1.1", // Use "2" if your server supports it (Go h2c supports it)
   });
 
   // 2. Create the client
