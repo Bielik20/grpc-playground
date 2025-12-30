@@ -4,11 +4,17 @@
 
 ### Buf
 
-Brew: `brew install bufbuild/buf/buf`
+Install Buff: `bun install -D @bufbuild/buf`
 
-Alternatively (npm): `npm install @bufbuild/buf`
+Install TypeScript plugin: `bun install -D @bufbuild/protoc-gen-es`
 
-To generate stuff from protobuf: `buf generate`
+Install Go plugins:
+- `go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.1`
+- `go install connectrpc.com/connect/cmd/protoc-gen-connect-go@v1.19.1`
+
+To generate stuff from protobuf: `PATH="$(go env GOPATH)/bin:$(go env GOBIN):${PATH}" bunx buf generate`
+
+Or as a shorthand: `make generate`
 
 ## Running locally
 
