@@ -1,0 +1,7 @@
+go 1.25.5
+
+use (
+	./projects/product/api
+	./projects/product/client
+	./projects/product/server
+)
